@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="JavaOracleWebix.mapper.userMapper">
+	<resultMap id="userResultMap" type="JavaOracleWebix.entity.User">
+		<result column="makh" property="maKh" />
+		<result column="tenkh" property="tenKh" />
+		<result column="birthday" property="birthday" />
+		<result column="diachi" property="diaChi" />
+		<result column="phone" property="phone" />
+		<result column="image" property="image" />
+		<result column="isuse" property="isUse" />
+		<result column="mail" property="mail" />
+		<result column = "roleid" property = "roleId" />
+		<result column = "rolename" property = "roleName" />
+	</resultMap>
+ 	
+	<select id="getAllUser" resultMap="userResultMap">
+		select us.makh
+		     , us.tenkh
+		     , us.birthday
+		     , us.diachi
+		     , us.phone
+		     , us.image
+		     , us.isuse
+		     , us.mail
+		     , us.roleid
+		     , r.rolename
+		from system.f4_ivn_hr_use us left join system.f4_ivn_hr_role r on us.roleid = r.roleid
+	</select>
+	
+	<select id="getUserByRoleName" resultMap="userResultMap">
+		select us.makh
+		     , us.tenkh
+		     , us.birthday
+		     , us.diachi
+		     , us.phone
+		     , us.image
+		     , us.isuse
+		     , us.mail
+		     , us.roleid
+		from system.f4_ivn_hr_use us left join system.f4_ivn_hr_role r on us.roleid = r.roleid
+		where r.rolename = #{rolename}
+	</select>
+	
+	<select id="getUserisUseByRoleName" resultMap="userResultMap">
+		select us.makh
+		     , us.tenkh
+		     , us.birthday
+		     , us.diachi
+		     , us.phone
+		     , us.image
+		     , us.isuse
+		     , us.mail
+		     , us.roleid
+		from system.f4_ivn_hr_use us left join system.f4_ivn_hr_role r on us.roleid = r.roleid
+		where upper(r.rolename) = upper(#{roleName}) 
+			   and r.isuse = 'Y'
+	</select>
+	
+	<select id="getUserByIsUse" resultMap="userResultMap">
+		select us.makh
+		     , us.tenkh
+		     , us.birthday
+		     , us.diachi
+		     , us.phone
+		     , us.image
+		     , us.isuse
+		     , us.mail
+		     , us.roleid
+		     , r.rolename
+		from system.f4_ivn_hr_use us left join system.f4_ivn_hr_role r on us.roleid = r.roleid
+		where upper(us.isuse) = upper(#{isUse})
+	</select>
+	
+	<insert id="saveUser">
+		insert into system.f4_ivn_hr_use(makh, tenkh, birthday, diachi, phone, image, isuse, mail, roleid) values(#{maKh}, #{tenKh}, #{birthday}, #{diaChi}, #{phone}, #{image}, upper(#{isUse}), #{mail}, #{roleId})
+	</insert>
+	
+	<delete id="deleteUser">
+		delete
+			from system.f4_ivn_hr_use
+			where makh = #{maKh}	
+	</delete>
+	
+	
+	<update id="updateUser">
+		update system.f4_ivn_hr_use
+		set
+			tenkh = #{tenKh},
+			birthday = #{birthday},
+			diachi = #{diaChi},
+			phone = #{phone},
+			image = #{image},
+			isuse = #{isUse},
+			mail = #{mail},
+			roleid = #{roleId}
+			where makh = #{maKh}
+	</update>
+	
+	<select id="getUserByName" resultMap="userResultMap">
+		select us.makh
+		     , us.tenkh
+		     , us.birthday
+		     , us.diachi
+		     , us.phone
+		     , us.image
+		     , us.isuse
+		     , us.mail
+		     , us.roleid
+		     , r.rolename
+		from system.f4_ivn_hr_use us left join system.f4_ivn_hr_role r on us.roleid = r.roleid
+		where upper(us.isuse) = upper('Y') and upper(us.tenkh) = upper(#{tenKh})
+	</select>
+	
+	<select id="getMaxMakh" resultType="Long">
+		select max(makh)+1 from system.f4_ivn_hr_use
+	</select>
+	
+</mapper>
+

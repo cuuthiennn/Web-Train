@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="JavaOracleWebix.mapper.RoleMapper">
+	<resultMap id="roleResultMap" type="JavaOracleWebix.entity.Role">
+		<result column="roleid" property="roleId" />
+		<result column="rolename" property="roleName" />
+		<result column="isuse" property="isuse" />
+		<result column="image" property="image" />
+		<result column="description" property="description" />
+	</resultMap>
+
+	<select id="getAllRole" resultMap="roleResultMap">
+		select r.roleid
+		     , r.rolename
+		     , r.isuse
+		     , r.image
+		     , r.description
+		from system.f4_ivn_hr_role r
+	</select>
+	
+	<select id="getRoleIdIsUse" resultType="hashmap">
+		select r.roleid as "id", r.roleid as "value"
+		from system.f4_ivn_hr_role r
+		where r.isuse = 'Y'
+	</select>
+	
+	<insert id="saveRole">
+		insert into system.f4_ivn_hr_role r (roleid, rolename, isuse, image, description)
+		 values (#{roleId}, #{roleName}, upper(#{isuse}),#{image}, #{description})
+	</insert>
+	
+	<update id="updateRole">
+		update system.f4_ivn_hr_role
+			set
+			roleid = #{roleId},
+			rolename = #{roleName},
+			isuse = upper(#{isuse}),
+			image = #{image},
+			description = #{description}
+		where roleid = #{roleId}
+	</update>
+	
+	<delete id="deleteRole">
+		delete
+		from system.f4_ivn_hr_role
+		where roleid = #{roleId}
+	</delete>
+	
+	<select id="getMaxRoleId" resultType="Long">
+		select max(roleid)+1 from system.f4_ivn_hr_role
+	</select>
+	
+	<select id="getCountRole" resultType="hashmap">
+		select DISTINCT r.rolename as "roleName" ,  count(u.roleid) as "soLuong"
+		from system.f4_ivn_hr_role r left join system.f4_ivn_hr_use u on r.roleid = u.roleid
+		group by r.rolename
+	</select>
+	
+	<select id="countRoleIsUse" resultType="hashmap">
+		select DISTINCT isuse as "isUse", count(isuse) as "count"
+		from system.f4_ivn_hr_role
+		group by isuse
+	</select>
+</mapper>
