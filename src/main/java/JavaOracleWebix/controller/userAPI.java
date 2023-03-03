@@ -1,5 +1,11 @@
 package JavaOracleWebix.controller;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,7 +13,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,8 +22,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
-import JavaOracleWebix.entity.Role;
 import JavaOracleWebix.entity.User;
 import JavaOracleWebix.service.userService;
 import lombok.extern.slf4j.Slf4j;
@@ -155,4 +161,25 @@ public class userAPI {
 		}
 		return ResponseEntity.ok(result);
 	}
+	
+//	@CrossOrigin
+//	@PostMapping("/uploadImageuser")
+//	ResponseEntity<?> doUploadImageUser(@RequestParam("image") MultipartFile image, @RequestParam("maKh") Long maKh) throws IOException{
+//		try {
+//			usrServ.uploadImageUser(image, maKh);
+//			String fileName = StringUtils.cleanPath(image.getOriginalFilename());
+//			String uploadDir = "user-photos/" + maKh;
+//			Path uploaPath = Paths.get(uploadDir);
+//			if(!Files.exists(uploaPath)) {
+//				Files.createDirectories(uploaPath);
+//			}
+//			InputStream inputStream = image.getInputStream();
+//			Path filePath = uploaPath.resolve(fileName);
+//			Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			throw new IOException("Could not save image file: ", e);
+//		}
+//		return null;
+//	}
 }

@@ -2,6 +2,9 @@ package JavaOracleWebix.service;
 
 import java.sql.SQLException;
 import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
+
 import JavaOracleWebix.entity.User;
 
 public interface userService {
@@ -22,4 +25,6 @@ public interface userService {
 	List<User> getUserByName(String tenKh);
 	
 	Long getMaxMakh();
+	
+	//void uploadImageUser(MultipartFile image, Long maKh);
 }

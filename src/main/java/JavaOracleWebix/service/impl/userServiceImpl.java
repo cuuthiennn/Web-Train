@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import JavaOracleWebix.entity.User;
 import JavaOracleWebix.mapper.userMapper;
@@ -75,5 +76,12 @@ public class userServiceImpl implements userService{
 		// TODO Auto-generated method stub
 		return usrMapper.getMaxMakh();
 	}
+
+
+//	@Override
+//	public void uploadImageUser(MultipartFile image, Long maKh) {
+//		// TODO Auto-generated method stub
+//		usrMapper.uploadImageUser(image, maKh);
+//	}
 
 }

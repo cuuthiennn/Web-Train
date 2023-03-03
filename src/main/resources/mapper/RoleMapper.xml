@@ -19,7 +19,7 @@
 	</select>
 	
 	<select id="getRoleIdIsUse" resultType="hashmap">
-		select r.roleid as "id", r.roleid as "value"
+		select r.roleid as "roleId", r.rolename as "roleName"
 		from system.f4_ivn_hr_role r
 		where r.isuse = 'Y'
 	</select>
@@ -51,13 +51,16 @@
 	</select>
 	
 	<select id="getCountRole" resultType="hashmap">
-		select DISTINCT r.rolename as "roleName" ,  count(u.roleid) as "soLuong"
+		select r.rolename as "roleName" 
+			   ,  count(u.roleid) as "soLuong"
 		from system.f4_ivn_hr_role r left join system.f4_ivn_hr_use u on r.roleid = u.roleid
-		group by r.rolename
+		where r.isuse = 'Y'
+		group by r.roleid, r.rolename
 	</select>
 	
 	<select id="countRoleIsUse" resultType="hashmap">
-		select DISTINCT isuse as "isUse", count(isuse) as "count"
+		select isuse as "isUse"
+			   , count(isuse) as "count"
 		from system.f4_ivn_hr_role
 		group by isuse
 	</select>

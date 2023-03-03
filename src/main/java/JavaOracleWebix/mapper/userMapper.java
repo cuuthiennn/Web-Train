@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.web.multipart.MultipartFile;
 
 import JavaOracleWebix.entity.User;
 @Mapper
@@ -25,4 +26,6 @@ public interface userMapper {
 	List<User> getUserByName(String tenKh);
 
 	Long getMaxMakh();
+	
+	//void uploadImageUser(@Param("image") MultipartFile image, @Param("maKh") Long maKh);
 }

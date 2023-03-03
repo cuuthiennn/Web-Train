@@ -52,9 +52,9 @@
 		     , us.isuse
 		     , us.mail
 		     , us.roleid
+		     , r.rolename
 		from system.f4_ivn_hr_use us left join system.f4_ivn_hr_role r on us.roleid = r.roleid
-		where upper(r.rolename) = upper(#{roleName}) 
-			   and r.isuse = 'Y'
+		where upper(r.rolename) = upper(#{roleName}) and us.isuse = 'Y'
 	</select>
 	
 	<select id="getUserByIsUse" resultMap="userResultMap">
@@ -115,6 +115,13 @@
 	<select id="getMaxMakh" resultType="Long">
 		select max(makh)+1 from system.f4_ivn_hr_use
 	</select>
+	
+	<!-- <update id="uploadImageUser">
+		update system.f4_ivn_hr_use
+		set
+			image = #{image};
+		where makh = #{maKh};
+	</update> -->
 	
 </mapper>
 
