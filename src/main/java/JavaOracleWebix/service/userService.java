@@ -3,9 +3,8 @@ package JavaOracleWebix.service;
 import java.sql.SQLException;
 import java.util.List;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import JavaOracleWebix.entity.User;
+import jakarta.servlet.http.HttpServletResponse;
 
 public interface userService {
 	List<User> getAllUser() throws SQLException;
@@ -26,5 +25,7 @@ public interface userService {
 	
 	Long getMaxMakh();
 	
-	//void uploadImageUser(MultipartFile image, Long maKh);
+	List<User> searchUser(String tenKh, List<Integer> arrayId);
+	
+	void expotExcel(HttpServletResponse response, String tenKh, List<Integer> arrayId) throws Exception;
 }

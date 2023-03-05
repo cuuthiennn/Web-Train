@@ -51,6 +51,19 @@ public class roleAPI {
 	}
 	
 	@CrossOrigin
+	@GetMapping("/richSelectData")
+	ResponseEntity<?> doRichSelectData(){
+		List<HashMap<String, Object>> result = new ArrayList<>();
+		try {
+			 result = roleSrv.richSelectData();
+		} catch (Exception e) {
+			// TODO: handle exception
+			log.error("Fail to call api getRoleIdIsUse!", e);
+		}
+		return ResponseEntity.ok(result);
+	}
+	
+	@CrossOrigin
 	@PostMapping("/saveRole")
 	ResponseEntity<?> doPostSaveRole(@RequestBody Role paramRole){
 		HashMap<String, Object> result = new HashMap<>();

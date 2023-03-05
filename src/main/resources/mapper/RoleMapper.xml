@@ -24,6 +24,12 @@
 		where r.isuse = 'Y'
 	</select>
 	
+	<select id="richSelectData" resultType="hashmap">
+		select r.roleid as "id", r.roleid as "value"
+		from system.f4_ivn_hr_role r
+		where r.isuse = 'Y'
+	</select>
+	
 	<insert id="saveRole">
 		insert into system.f4_ivn_hr_role r (roleid, rolename, isuse, image, description)
 		 values (#{roleId}, #{roleName}, upper(#{isuse}),#{image}, #{description})

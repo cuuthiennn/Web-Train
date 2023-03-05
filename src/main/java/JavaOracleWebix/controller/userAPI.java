@@ -1,11 +1,5 @@
 package JavaOracleWebix.controller;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,7 +7,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import JavaOracleWebix.entity.User;
 import JavaOracleWebix.service.userService;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestController
@@ -133,7 +127,7 @@ public class userAPI {
 		} catch (Exception e) {
 			log.error("Fail when call Api deleteUser :", e);
 			result.put("success", false);
-			result.put("massage", "Success when call Api deleteUser!");
+			result.put("massage", "Fail when call Api deleteUser!");
 			result.put("data", null);
 		}
 		return ResponseEntity.ok(result);
@@ -156,30 +150,41 @@ public class userAPI {
 		} catch (Exception e) {
 			log.error("Fail when call Api deleteUser :", e);
 			result.put("success", false);
-			result.put("massage", "Success when call Api deleteUser!");
-			result.put("data", userParam);
+			result.put("massage", "Fail when call Api deleteUser!");
+			result.put("data", null);
 		}
 		return ResponseEntity.ok(result);
 	}
 	
-//	@CrossOrigin
-//	@PostMapping("/uploadImageuser")
-//	ResponseEntity<?> doUploadImageUser(@RequestParam("image") MultipartFile image, @RequestParam("maKh") Long maKh) throws IOException{
-//		try {
-//			usrServ.uploadImageUser(image, maKh);
-//			String fileName = StringUtils.cleanPath(image.getOriginalFilename());
-//			String uploadDir = "user-photos/" + maKh;
-//			Path uploaPath = Paths.get(uploadDir);
-//			if(!Files.exists(uploaPath)) {
-//				Files.createDirectories(uploaPath);
-//			}
-//			InputStream inputStream = image.getInputStream();
-//			Path filePath = uploaPath.resolve(fileName);
-//			Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//			throw new IOException("Could not save image file: ", e);
-//		}
-//		return null;
-//	}
+	@CrossOrigin
+	@GetMapping("/searchUser")
+	ResponseEntity<?> doSearchUser(@RequestParam("tenKh") String tenKh, @RequestParam("arrayId") List<Integer> arrayId){
+		HashMap<String, Object> result = new HashMap<>();
+		List<User> data_result = new ArrayList<>();
+		try {
+			data_result = usrServ.searchUser(tenKh, arrayId);
+			result.put("success", true);
+			result.put("massage", "Success when call Api searchUser!");
+			result.put("data", data_result);
+		} catch (Exception e) {
+			// TODO: handle exception
+			log.error("Fail when call Api searchUser :", e);
+			result.put("success", false);
+			result.put("massage", "Fail when call Api searchUser!");
+			result.put("data", tenKh+" "+arrayId);
+		}
+		return ResponseEntity.ok(result);
+	}
+	
+	@CrossOrigin
+	@GetMapping("/exportExcelUserList")
+	ResponseEntity<?> doExportExcelUserList(HttpServletResponse response, @RequestParam("tenKh") String tenKh, @RequestParam("arrayId") List<Integer> arrayId ) throws Exception{
+		try {
+			usrServ.expotExcel(response, tenKh, arrayId);
+		} catch (Exception e) {
+			// TODO: handle exception
+			log.error("Fail when call Api exportExcelUserList :", e);
+		}
+		return null;
+	}
 }

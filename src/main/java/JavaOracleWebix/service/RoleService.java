@@ -21,4 +21,6 @@ public interface RoleService {
 	List<HashMap<String, Object>> getCountRole();
 	
 	List<HashMap<String, Object>> countRoleIsUse();
+	
+	List<HashMap<String, Object>> richSelectData();
 }
