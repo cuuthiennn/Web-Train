@@ -20,6 +20,9 @@ public interface RoleMapper {
 
 	List<HashMap<String, Object>> getRoleIdIsUse();
 	
+	List<HashMap<String, Object>> richSelectData();
+
+	
 	Long getMaxRoleId();
 	
 	List<HashMap<String, Object>> getCountRole();

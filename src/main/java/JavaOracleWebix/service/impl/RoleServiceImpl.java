@@ -55,4 +55,9 @@ public class RoleServiceImpl implements RoleService{
 		// TODO Auto-generated method stub
 		return mapper.countRoleIsUse();
 	}
+	@Override
+	public List<HashMap<String, Object>> richSelectData() {
+		// TODO Auto-generated method stub
+		return mapper.richSelectData();
+	}
 }
