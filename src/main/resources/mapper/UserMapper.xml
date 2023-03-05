@@ -130,13 +130,14 @@
 		FROM SYSTEM.f4_ivn_hr_use U LEFT JOIN SYSTEM.f4_ivn_hr_role R ON U.ROLEID = R.ROLEID
 		<where>
 			U.ISUSE = 'Y'
-			<if test="arrayId != '' and arrayId != null">
-				<foreach item="item" index="index" collection="arrayId" open="AND R.ROLEID IN (" separator="," close=")">
+			<if test="!arrayId.isEmpty()">
+				AND R.ROLEID IN 
+				<foreach item="item" index="index" collection="arrayId" open="(" separator="," close=")">
     				#{item}
     			</foreach>
 			</if>
 			<if test="tenKh != ''">
-			<bind name="name" value="'%'+ tenKh + '%'"/>
+				<bind name="name" value="'%'+ tenKh + '%'"/>
 				AND UPPER(U.TENKH) LIKE #{name}
 			</if>
 		</where>

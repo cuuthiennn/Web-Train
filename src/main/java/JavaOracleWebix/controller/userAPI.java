@@ -15,21 +15,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-
 import JavaOracleWebix.entity.User;
 import JavaOracleWebix.service.userService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestController
+@CrossOrigin
 @RequestMapping("/api/user")
 public class userAPI {
 	
 	@Autowired
 	private userService usrServ;
 	
-	@CrossOrigin
 	@GetMapping("/getAllUser")
 	ResponseEntity<?> doGetAllUser() {
 		List<User> listUser = new ArrayList<>();
@@ -48,7 +46,7 @@ public class userAPI {
 		return ResponseEntity.ok(result);
 	}
 	
-	@CrossOrigin
+
 	@GetMapping("/getUserByName")
 	ResponseEntity<?> doGetUserByName(@RequestParam("tenKh") String tenKh) {
 		List<User> listUser = new ArrayList<>();
@@ -67,7 +65,7 @@ public class userAPI {
 		return ResponseEntity.ok(result);
 	}
 	
-	@CrossOrigin
+
 	@GetMapping("/getUserByIsUse")
 	ResponseEntity<?> doGetUserByUse(@RequestParam("isUse") String isUse) throws SQLException {
 		List<User> listUser = new ArrayList<>();
@@ -87,7 +85,7 @@ public class userAPI {
 	}
 	
 
-	@CrossOrigin
+
 	@GetMapping("/getUserisUseByRoleName")
 	ResponseEntity<?> doGetUserisUseByRoleName(@RequestParam("roleName") String roleName) throws SQLException{
 
@@ -95,7 +93,7 @@ public class userAPI {
 	}
 	
 	
-	@CrossOrigin
+
 	@PostMapping("/saveUser")
 	ResponseEntity<?> saveUser(@RequestBody User userParam){
 		HashMap<String, Object> result = new HashMap<>();
@@ -115,7 +113,7 @@ public class userAPI {
 		return ResponseEntity.ok(result);
 	}
 	
-	@CrossOrigin
+
 	@DeleteMapping("/deleteUser")
 	ResponseEntity<?> doDeleteUser(@RequestParam("maKh") Long maKh){
 		HashMap<String, Object> result = new HashMap<>();
@@ -133,7 +131,7 @@ public class userAPI {
 		return ResponseEntity.ok(result);
 	}
 	
-	@CrossOrigin
+
 	@PostMapping("/saveOrUpdateUser")
 	ResponseEntity<?> doSaveOrUpdateUser(@RequestBody User userParam) throws SQLException{
 		HashMap<String, Object> result = new HashMap<>();
@@ -176,7 +174,7 @@ public class userAPI {
 		return ResponseEntity.ok(result);
 	}
 	
-	@CrossOrigin
+	
 	@GetMapping("/exportExcelUserList")
 	ResponseEntity<?> doExportExcelUserList(HttpServletResponse response, @RequestParam("tenKh") String tenKh, @RequestParam("arrayId") List<Integer> arrayId ) throws Exception{
 		try {
