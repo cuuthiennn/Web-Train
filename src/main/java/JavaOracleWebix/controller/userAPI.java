@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import JavaOracleWebix.entity.User;
+import JavaOracleWebix.service.emailService;
 import JavaOracleWebix.service.userService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +28,8 @@ public class userAPI {
 	
 	@Autowired
 	private userService usrServ;
+	@Autowired
+	private emailService email;
 	
 	@GetMapping("/getAllUser")
 	ResponseEntity<?> doGetAllUser() {
@@ -142,6 +145,7 @@ public class userAPI {
 			}else {
 				usrServ.updateUser(userParam);
 			}
+			//email.sendEmail(userParam.getMaKh(), userParam.getMail());
 			result.put("success", true);
 			result.put("massage", "Success when call Api deleteUser!");
 			result.put("data", userParam);
