@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.mail.MailException;
+
 import JavaOracleWebix.entity.User;
 @Mapper
 public interface userMapper {
@@ -26,4 +28,6 @@ public interface userMapper {
 	Long getMaxMakh();
 	
 	List<User> searchUser(@Param("tenKh") String tenKh, @Param("arrayId") List<Integer> arrayId);
+	
+	String checkToSendEmail(@Param("maKh") Long maKh)throws MailException;
 }
